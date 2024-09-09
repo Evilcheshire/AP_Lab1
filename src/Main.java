@@ -78,8 +78,8 @@ class IOHandler {
     }
 
     // метод для виведення результатів
-    public void displayResults(FibNumber[] fibNumbers) {
-        System.out.println("Checking if generated Fibonacci numbers are squares:");
+    public void displayResults(FibNumber[] fibNumbers, int n) {
+        System.out.println("Checking if generated Fibonacci numbers("+n+") are squares:");
         for (FibNumber fibNumber : fibNumbers) {
             System.out.print(fibNumber);
             if (Utils.isSquare(fibNumber.getValue()))
@@ -106,7 +106,7 @@ public class Main {
         FibNumber[] fibNumbers = Utils.generateFibNumber(n);
 
         // виведення результатів
-        ioHandler.displayResults(fibNumbers);
+        ioHandler.displayResults(fibNumbers, n);
 
         ioHandler.close();
     }
