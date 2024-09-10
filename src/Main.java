@@ -1,72 +1,105 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-// клас для числа Фібоначчі
-class FibNumber {
-    private long index, // порядковий номер числа
-                 value; // його значення
 
-    // консруктор класу
+/**
+ * This class is for Fibonacci numbers
+ * It has a constructor and methods to access number's index and value.
+ * There is also a method to display number as a string (<i>public String toString()</i>)
+ * */
+
+class FibNumber {
+    private long index,
+                 value;
+
+    /** Constructor
+     *
+     * @param index Index of Fibonacci number
+     * @param value Value of Fibonacci number
+     * */
     public FibNumber (long index, long value){
         this.index = index;
         this.value = value;
     }
 
-    // метод доступу до індекса
+    /** Method to access the index of Fibonacci number(isn't used in the program though)
+     * */
     public long getIndex(){
         return index;
     }
-
-    // метод доступу до значення
+    /** Method to access the value of Fibonacci number
+     * */
     public long getValue(){
         return value;
     }
 
-    // метод для перетворення числа в символьний рядок типу "F(index) = value"
+    /** Method to display a number
+     *
+     * @return A string of this type: F(index) = value
+     * */
     public String toString() {
         return "F(" + index + ") = " + value;
     }
 }
 
-// клас для допоміжних методів (генерація й перевірка)
+/**
+ * Class for utilities
+ * */
+
 class Utils {
-    // метод для перевірки того, чи є число Фібоначі квадратом
+
+    /** Method to check if this Fibonacci number is a square of a natural number
+     *
+     * @param number The number to be checked
+     * @return If the square of square roots of this number equals the number itself the result is <i>true</i>
+     * */
     public static boolean isSquare(long number) {
         long sqrt = (long) Math.sqrt(number);
         return sqrt * sqrt == number;
     }
 
-    // метод для генерації n чисел Фібоначчі
+    /** Method to check if this Fibonacci number is a square of a natural number
+     *
+     * @param n The amount of Fibonacci numbers to be generated
+     * @return An array (<i>fibNumbers</i>) of generated Fibonacci numbers (including 0)
+     * */
     public static FibNumber[] generateFibNumber(int n) {
-        FibNumber[] fibNumbers = new FibNumber[n]; // масив об'єктив чисел Фібоначчі
-        long f1 = 0, f2 = 1; // перші два числа Фібоначчі
+        FibNumber[] fibNumbers = new FibNumber[n];
+        long f1 = 0, f2 = 1;
 
-        //цикл для генерації чисел
         for (int i = 0; i < n; i++) {
-            fibNumbers[i] = new FibNumber (i, f1); // додавання об'єкту в масив
-            long fn = f1 + f2; // обчислення наступного числа Фібоначчі
+            fibNumbers[i] = new FibNumber (i, f1);
+            long fn = f1 + f2;
             f1 = f2;
             f2 = fn;
         }
-        return fibNumbers; // метод повертає згенерований масив з об'єктами
+        return fibNumbers;
     }
 }
+
+/**
+ * Class for input and output
+ * */
 
 class IOHandler {
     private Scanner sc;
 
+    /** Constructor
+     * */
     public IOHandler() {
         sc = new Scanner(System.in);
     }
-
-    // метод для отримання кількості чисел Фібоначчі
+    /** Method that grants accurate input
+     *
+     * @return n The amount of Fibonacci numbers to be generated
+     * */
     public int getFibCount() {
         int n = 0;
         while (true) {
-            System.out.println("Enter the amount of Fibonacci numbers to be generated (N, non-negative integer): ");
+            System.out.println("Enter the amount of Fibonacci numbers to be generated (N, non-negative integer and non-zero): ");
             try {
                 n = sc.nextInt();
-                if (n < 0)
-                    System.out.println("Error: N must be a non-negative integer. Please try again.");
+                if (n < 1)
+                    System.out.println("Error: N must be a non-negative integer and and non-zero. Please try again.");
                 else
                     break;
             } catch (InputMismatchException e) {
@@ -77,7 +110,11 @@ class IOHandler {
         return n;
     }
 
-    // метод для виведення результатів
+    /** Method to display the result
+     *
+     * @param n The amount of Fibonacci numbers
+     * @param fibNumbers The array of generated numbers
+     * */
     public void displayResults(FibNumber[] fibNumbers, int n) {
         System.out.println("Checking if generated Fibonacci numbers("+n+") are squares:");
         for (FibNumber fibNumber : fibNumbers) {
@@ -89,23 +126,25 @@ class IOHandler {
         }
     }
 
+    /** Method to close the scanner
+     * */
     public void close() {
         sc.close();
     }
 }
 
-// головний клас програми
+/**
+ * Main class with I/O, generated array of Fibonacci numbers and with the result of the check
+ * */
+
 public class Main {
     public static void main(String[] args) {
-        IOHandler ioHandler = new IOHandler(); // створення об'єкта для введення/виведення
+        IOHandler ioHandler = new IOHandler();
 
-        // отримання кількості чисел для генерації
         int n = ioHandler.getFibCount();
 
-        // генерація чисел Фібоначчі
         FibNumber[] fibNumbers = Utils.generateFibNumber(n);
 
-        // виведення результатів
         ioHandler.displayResults(fibNumbers, n);
 
         ioHandler.close();
