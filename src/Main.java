@@ -57,22 +57,14 @@ class Utils {
         return sqrt * sqrt == number;
     }
 
-    /** Method to check if this Fibonacci number is a square of a natural number
+    /** Method to generate the next Fibonacci number
      *
-     * @param n The amount of Fibonacci numbers to be generated
-     * @return An array (<i>fibNumbers</i>) of generated Fibonacci numbers (including 0)
+     * @param f1 - f(i-2), where <i>i</i> is index of the next Fibonacci number
+     * @param f2 - f(i-1)
+     * @return f1+f2 = fn - the next Fibonacci number
      * */
-    public static FibNumber[] generateFibNumber(int n) {
-        FibNumber[] fibNumbers = new FibNumber[n];
-        long f1 = 0, f2 = 1;
-
-        for (int i = 0; i < n; i++) {
-            fibNumbers[i] = new FibNumber (i, f1);
-            long fn = f1 + f2;
-            f1 = f2;
-            f2 = fn;
-        }
-        return fibNumbers;
+    public static long nextFibNumber(long f1, long f2) {
+        return f1 + f2;
     }
 }
 
@@ -113,16 +105,22 @@ class IOHandler {
     /** Method to display the result
      *
      * @param n The amount of Fibonacci numbers
-     * @param fibNumbers The array of generated numbers
      * */
-    public void displayResults(FibNumber[] fibNumbers, int n) {
+    public void displayResults(int n) {
         System.out.println("Checking if generated Fibonacci numbers("+n+") are squares:");
-        for (FibNumber fibNumber : fibNumbers) {
-            System.out.print(fibNumber);
+
+        long f1 = 0, f2 = 1, fn = 0;
+
+        for (int i=0; i<n; i++) {
+            FibNumber fibNumber = new FibNumber(i, f1);
+            System.out.print(fibNumber.toString());
             if (Utils.isSquare(fibNumber.getValue()))
                 System.out.print(" -> is square;\n");
             else
                 System.out.print(" -> is not square;\n");
+            fn = Utils.nextFibNumber(f1, f2);
+            f1 = f2;
+            f2 = fn;
         }
     }
 
@@ -134,7 +132,7 @@ class IOHandler {
 }
 
 /**
- * Main class with I/O, generated array of Fibonacci numbers and with the result of the check
+ * Main class with I/O and with the result of the check
  * */
 
 public class Main {
@@ -143,9 +141,7 @@ public class Main {
 
         int n = ioHandler.getFibCount();
 
-        FibNumber[] fibNumbers = Utils.generateFibNumber(n);
-
-        ioHandler.displayResults(fibNumbers, n);
+        ioHandler.displayResults(n);
 
         ioHandler.close();
     }
