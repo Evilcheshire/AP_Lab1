@@ -31,6 +31,12 @@ public class FibNumber {
         return value;
     }
 
+    public boolean isSquare() {
+        long sqrt = (long) Math.sqrt(this.getValue());
+        return sqrt * sqrt == this.getValue();
+    }
+
+
     /** Method to display a number
      *
      * @return A string of this type: F(index) = value

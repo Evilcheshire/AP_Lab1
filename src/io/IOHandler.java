@@ -50,7 +50,7 @@ public class IOHandler {
         for (int i=0; i<n; i++) {
             FibNumber fibNumber = new FibNumber(i, f1);
             System.out.print(fibNumber.toString());
-            if (isSquare(fibNumber.getValue()))
+            if (fibNumber.isSquare())
                 System.out.print(" -> is square;\n");
             else
                 System.out.print(" -> is not square;\n");
@@ -58,12 +58,6 @@ public class IOHandler {
             f1 = f2;
             f2 = fn;
         }
-    }
-
-
-    public static boolean isSquare(long number) {
-        long sqrt = (long) Math.sqrt(number);
-        return sqrt * sqrt == number;
     }
 
     /** Method to close the scanner
