@@ -25,12 +25,15 @@ public class FibNumber {
     public long getIndex(){
         return index;
     }
+
     /** Method to access the value of Fibonacci number
      * */
     public long getValue(){
         return value;
     }
 
+    /** Method to check if the Fibonacci number is a square
+     * */
     public boolean isSquare() {
         long sqrt = (long) Math.sqrt(this.getValue());
         return sqrt * sqrt == this.getValue();
