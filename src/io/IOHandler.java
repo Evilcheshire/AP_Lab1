@@ -1,7 +1,6 @@
 package io;
 
 import fibnumber.FibNumber;
-import utils.Utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -51,14 +50,20 @@ public class IOHandler {
         for (int i=0; i<n; i++) {
             FibNumber fibNumber = new FibNumber(i, f1);
             System.out.print(fibNumber.toString());
-            if (Utils.isSquare(fibNumber.getValue()))
+            if (isSquare(fibNumber.getValue()))
                 System.out.print(" -> is square;\n");
             else
                 System.out.print(" -> is not square;\n");
-            fn = Utils.nextFibNumber(f1, f2);
+            fn = f1+f2;
             f1 = f2;
             f2 = fn;
         }
+    }
+
+
+    public static boolean isSquare(long number) {
+        long sqrt = (long) Math.sqrt(number);
+        return sqrt * sqrt == number;
     }
 
     /** Method to close the scanner
