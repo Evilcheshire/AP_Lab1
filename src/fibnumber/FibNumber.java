@@ -7,15 +7,15 @@ package fibnumber;
  * */
 
 public class FibNumber {
-    private long index,
-            value;
+    private int index;
+    private long value;
 
     /** Constructor
      *
      * @param index Index of Fibonacci number
      * @param value Value of Fibonacci number
      * */
-    public FibNumber (long index, long value){
+    public FibNumber (int index, long value){
         this.index = index;
         this.value = value;
     }
